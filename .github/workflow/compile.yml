@@ -1,0 +1,25 @@
+name: CI/CD - Auto-Génération du CV PDF
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build PDF via Docker Container
+        run: |
+          docker build -t cv-builder .
+          docker run --rm -v "$(pwd)":/workspace cv-builder src/cv.md --template=src/template.html --css=assets/style.css --pdf-engine=weasyprint -o cv.pdf
+
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CV_Anais_TAFONO
+          path: cv.pdf
+          if-no-files-found: error
