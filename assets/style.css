@@ -1,103 +1,318 @@
-:root {
-    --primary-color: #4A3E3D;
-    /* Brun-anthracite doux pour le texte principal */
-    --accent-dark: #A97C73;
-    /* Vieux rose / Or rose foncé pour les titres */
-    --accent-light: #F4EBE9;
-    /* Rose poudré très clair pour les fonds/encadrés */
-    --line-color: #E2D1CE;
-    /* Rose-or très fin pour les séparateurs */
-    --text-color: #4F4F4F;
-    /* Gris foncé texturé pour une lecture fluide */
+/* --- 1. POLICES --- */
+@font-face {
+    font-family: 'RecursiveSans';
+    src: url('RecursiveSansLnrSt-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
-    font-family: 'Recursive', 'Georgia', 'Segoe UI', sans-serif;
+@font-face {
+    font-family: 'RecursiveSans-Bold';
+    src: url('RecursiveSansLnrSt-SemiBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+:root {
+    --bg-desktop: #EBF0F5;
+    --bg-window: #FFFFFF;
+    --text-dark: #4A4A4A;
+    --accent-pink: #F3B3B3;
+    --accent-purple: #7985A6;
 }
 
 @page {
     size: A4;
-    margin: 20mm;
-
-    @bottom-right {
-        content: "Page " counter(page) " / " counter(pages);
-        font-size: 8pt;
-        color: var(--accent-dark);
-        font-family: sans-serif;
-    }
+    margin: 0;
 }
 
 body {
-    color: var(--text-color);
-    line-height: 1.6;
-    font-size: 10.5pt;
+    background-color: var(--bg-desktop);
     margin: 0;
-    padding: 0;
+    padding: 10mm;
+    font-family: 'RecursiveSans', sans-serif;
+    color: var(--text-dark);
+    -webkit-print-color-adjust: exact;
 }
 
-h1 {
-    color: var(--primary-color);
+/* --- LA FENÊTRE PRINCIPALE --- */
+.cv-window {
+    background-color: var(--bg-window);
+    width: 190mm;
+    height: 277mm;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 35mm 15mm 20mm 15mm;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.cv-window::before {
+    content: "•••";
+    position: absolute;
+    top: 12mm;
+    left: 15mm;
     font-size: 26pt;
-    font-weight: 300;
-    margin-bottom: 5px;
+    color: var(--accent-purple);
+    letter-spacing: 3px;
+    line-height: 0;
+}
+
+/* --- DESIGN DE L'EN-TÊTE --- */
+.cv-header {
+    position: absolute;
+    top: 12mm;
+    right: 15mm;
+    text-align: right;
+}
+
+.cv-header h1 {
+    font-family: 'RecursiveSans-Bold', sans-serif;
+    font-size: 32pt;
+    color: var(--accent-pink);
+    margin: 0;
+}
+
+.cv-header p {
+    font-family: 'RecursiveSans-Bold', sans-serif;
+    font-size: 10pt;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    margin: 5px 0 0 0;
     letter-spacing: 1px;
 }
 
-h1+p {
-    font-size: 9.5pt;
-    color: var(--accent-dark);
-    margin-bottom: 25px;
-}
-
-h1+p strong {
-    color: var(--primary-color);
+/* --- STRUCTURE DE LA COLONNE DE DROITE --- */
+.cv-body {
     display: block;
-    font-size: 12pt;
-    margin-bottom: 5px;
+    width: 100%;
+    margin-top: 15mm;
 }
 
-h2 {
-    color: var(--accent-dark);
+.cv-body h2 {
+    font-family: 'RecursiveSans-Bold', sans-serif;
     font-size: 13pt;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    border-bottom: 1px solid var(--line-color);
+    color: var(--accent-purple);
+    margin: 25px 0 8px 72mm;
+    border-bottom: 1px solid #E5E5E5;
     padding-bottom: 4px;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    page-break-after: avoid;
 }
 
-h2::before {
+.cv-body h3 {
+    font-family: 'RecursiveSans-Bold', sans-serif;
+    font-size: 10.5pt;
+    color: var(--text-dark);
+    margin: 15px 0 4px 72mm;
+}
+
+.cv-body p,
+.cv-body ul {
+    width: 88mm;
+    margin-left: 72mm;
+    font-size: 9.5pt;
+    line-height: 1.45;
+}
+
+.cv-body ul {
+    padding-left: 15px;
+}
+
+/* Le cadre du résumé professionnel */
+.cv-body h2:nth-of-type(1)+p {
+    border: 2px solid var(--accent-purple);
+    border-radius: 15px;
+    padding: 12px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+
+/* --- BLOCS GAUCHE --- */
+
+/* BLOC 1 : COMPÉTENCES TECHNIQUES */
+.cv-body h2:nth-of-type(2) {
+    position: absolute;
+    top: 60mm;
+    left: 15mm;
+    width: 52mm;
+    margin: 0;
+    border: none;
+    color: var(--accent-purple);
+}
+
+.cv-body h2:nth-of-type(2)+ul {
+    position: absolute;
+    top: 72mm;
+    left: 15mm;
+    width: 52mm;
+    background-color: var(--accent-purple);
+    color: white;
+    border-radius: 20px;
+    padding: 20px 12px 20px 18px;
+    margin: 0;
+    list-style: none;
+}
+
+/* BLOC 2 : COMPÉTENCES TRANSVERSES */
+.cv-body h2:nth-of-type(5) {
+    position: absolute;
+    top: 135mm;
+    left: 15mm;
+    width: 52mm;
+    margin: 0;
+    border: none;
+    color: var(--accent-purple);
+}
+
+.cv-body h2:nth-of-type(5)+ul {
+    position: absolute;
+    top: 147mm;
+    left: 15mm;
+    width: 52mm;
+    background-color: var(--accent-purple);
+    color: white;
+    border-radius: 20px;
+    padding: 20px 12px 20px 18px;
+    margin: 0;
+    list-style: none;
+}
+
+/* BLOC 3 : INTÉRÊTS (Remonté de 12mm pour harmoniser) */
+.cv-body h2:nth-of-type(6) {
+    position: absolute;
+    top: 195mm;
+    left: 15mm;
+    width: 52mm;
+    margin: 0;
+    border: none;
+    color: var(--accent-purple);
+}
+
+.cv-body h2:nth-of-type(6)+ul {
+    position: absolute;
+    top: 207mm;
+    left: 15mm;
+    width: 52mm;
+    background-color: var(--accent-purple);
+    color: white;
+    border-radius: 20px;
+    padding: 20px 12px 20px 18px;
+    margin: 0;
+    list-style: none;
+}
+
+
+/* --- STYLES COMMUNS DE LA SIDEBAR DE GAUCHE --- */
+.cv-body h2:nth-of-type(2)+ul li,
+.cv-body h2:nth-of-type(5)+ul li,
+.cv-body h2:nth-of-type(6)+ul li {
+    color: white;
+    font-size: 9pt;
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 22px;
+}
+
+.cv-body h2:nth-of-type(2)+ul li strong,
+.cv-body h2:nth-of-type(5)+ul li strong,
+.cv-body h2:nth-of-type(6)+ul li strong {
+    color: #FFFFFF;
+    display: block;
+    font-size: 9.5pt;
+    margin-bottom: 2px;
+}
+
+.cv-body h2::before {
+    display: none;
+}
+
+.cv-body h2:nth-of-type(2)+ul li::before,
+.cv-body h2:nth-of-type(5)+ul li::before,
+.cv-body h2:nth-of-type(6)+ul li::before {
     content: "";
     display: inline-block;
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-    vertical-align: -2px;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23A97C73'><path d='M12 2C11.5 4 10 5.5 8 6c2 .5 3.5 2 4 4 .5-2 2-3.5 4-4-2-.5-3.5-2-4-4zm-6 7c-.8 2.5-2.5 4.2-5 5 2.5.8 4.2 2.5 5 5 .8-2.5 4.2-4.2 5-5-2.5-.8-4.2-2.5-5-5zm11 3c-.5 1.5-1.5 2.5-3 3 1.5.5 2.5 1.5 3 3 .5-1.5 1.5-2.5 3-3-1.5-.5-2.5-1.5-3-3z'/></svg>");
-    background-repeat: no-repeat;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    left: 0;
+    top: 2px;
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
-h3 {
-    font-size: 11pt;
-    color: var(--primary-color);
-    margin-top: 12px;
-    margin-bottom: 4px;
+/* Logos du Bloc 1 (Techniques) */
+.cv-body h2:nth-of-type(2)+ul li:nth-child(1)::before {
+    background-image: url('icons/code-solid-full.svg');
 }
 
-ul {
-    margin-top: 0;
-    padding-left: 15px;
-    list-style-type: "✦ ";
+.cv-body h2:nth-of-type(2)+ul li:nth-child(2)::before {
+    background-image: url('icons/docker-brands-solid-full.svg');
 }
 
-li {
-    margin-bottom: 4px;
-    color: var(--text-color);
+.cv-body h2:nth-of-type(2)+ul li:nth-child(3)::before {
+    background-image: url('icons/hammer-solid-full.svg');
 }
 
-.cv-container>h3,
-.cv-container>ul {
-    page-break-inside: avoid;
+/* Logos du Bloc 2 (Transverses) */
+.cv-body h2:nth-of-type(5)+ul li:nth-child(1)::before {
+    background-image: url('icons/folder-tree-solid-full.svg');
+}
+
+.cv-body h2:nth-of-type(5)+ul li:nth-child(2)::before {
+    background-image: url('icons/chart-gantt-solid-full.svg');
+}
+
+/* Logos du Bloc 3 (Intérêts) */
+.cv-body h2:nth-of-type(6)+ul li:nth-child(1)::before {
+    background-image: url('icons/heart-solid-full.svg');
+}
+
+.cv-body h2:nth-of-type(6)+ul li:nth-child(2)::before {
+    background-image: url('icons/language-solid-full.svg');
+}
+
+
+/* --- LE PIED DE PAGE (Bandeau bleu) --- */
+.cv-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 190mm;
+    background-color: var(--accent-purple);
+    color: white;
+    padding: 14px 0;
+    text-align: center;
+    border-radius: 0 0 30px 30px;
+    font-size: 9.5pt;
+    box-sizing: border-box;
+}
+
+.cv-footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+.cv-footer a::before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.cv-footer a:nth-child(1)::before {
+    background-image: url('icons/envelope-solid-full.svg');
+}
+
+.cv-footer a:nth-child(2)::before {
+    background-image: url('icons/mobile-screen-button-solid-full.svg');
+}
+
+.cv-footer a:nth-child(3)::before {
+    background-image: url('icons/github-brands-solid-full.svg');
 }
